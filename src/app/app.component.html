@@ -1,0 +1,83 @@
+
+<div class="image-banner-div">
+  <div class="image-banner-txt">
+    <h1 class="image-banner-heading">Cocktails</h1>
+  </div>
+</div>
+
+<div class="container">
+<div class="row cocktail-listing-div">
+
+  <div class="col-md-12">
+    <div class="flt-left">
+      <button type="button" class="btn btn-warning" (click)="openFilterModal(template)"><i class="fas fa-filter filter-margin"></i>Filters</button>
+     </div> 
+   </div> 
+
+  <ng-container *ngIf="isCocktailDataLoaded">
+  <ng-container *ngFor="let cocktail of cocktails">
+  <div class="col-xl-3 col-lg-3 col-md-3 col-xs-3">
+    <div class="card cocktail-card">
+      <img class="card-img-top cocktail-image" src={{cocktail.strDrinkThumb}} alt="Card image cap">
+      <div class="card-body txt-center cocktail-card-padding">
+        <span class="cocktail-heading">{{cocktail.strDrink}}</span>
+      </div>
+    </div>
+ </div> 
+ </ng-container>
+ <ng-container *ngIf="cocktails == null || cocktails.length ==0">
+    <p>No Records Found</p>
+   </ng-container>
+ </ng-container>
+ </div>
+</div>
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Filter Cocktails</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="filterBy" class="label-cls">Filter By : </label>
+      <select class="form-control" id="filterBy" [(ngModel)]="selectedFilterBy" name="filterBy" (change)="onChangeOfFilterByInput()">
+        <ng-container *ngFor="let option of filterByOptions">
+        <option value={{option}} >{{option}}</option>
+        </ng-container>
+      </select>
+    </div>
+    <div class="form-group">
+       <ng-container *ngIf="selectedFilterBy == categoryFiltertType || selectedFilterBy == ingredientsFilterType">
+      <label for="option" class="label-cls">
+        Select
+        <ng-container *ngIf="selectedFilterBy == categoryFiltertType"> 
+          Category
+        </ng-container>
+        <ng-container *ngIf="selectedFilterBy == ingredientsFilterType">  
+          Ingredient
+         </ng-container> 
+        : 
+      </label>
+      <select class="form-control" id="option" [(ngModel)]="selectedFilterValue" name="option">
+        <option value="-1"> Select Option </option>
+        <ng-container *ngFor="let option of selectedAvailableOptions">
+        <option value={{option}} >{{option}}</option>
+        </ng-container>
+      </select>
+      </ng-container>
+
+      <ng-container *ngIf="selectedFilterBy==cocktailNameFilterType">
+          <label for="cocktailName">Enter Cocktail Name : </label>
+          <input type="text" class="form-control" name="cocktailName"  [(ngModel)]="cocktailNameInput"  id="cocktailName" placeholder="Enter text">
+       </ng-container> 
+    </div>
+
+    <div class="txt-center">
+      <button type="button" class="btn btn-warning" (click)="filterAppliedClick()">Apply</button>
+      </div>
+
+  </div>
+</ng-template>

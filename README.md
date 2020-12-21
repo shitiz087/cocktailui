@@ -1,6 +1,6 @@
 # Cocktailui
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0. Node version 12.14.1 and npm version 6.13.4
 
 ## Development server
 
